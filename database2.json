@@ -1,0 +1,10 @@
+[
+  {
+    "reference": "688134cf-52f3-4af9-8347-3b101534f409",
+    "senderAccount": 9373051928,
+    "amount": 50,
+    "receiverAccount": 6759742628,
+    "transferDescription": "for payment",
+    "createdAt": "2022-04-06T10:10:02.876Z"
+  }
+]
