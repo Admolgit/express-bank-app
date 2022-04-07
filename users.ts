@@ -34,12 +34,8 @@ let database = JSON.parse(fs.readFileSync(pathData, "utf-8"));
 export const allBalances = (req: Request, res: Response, next: NextFunction) => {
   // if(isExists == true) {
     fs.readFile(pathData, 'utf8', (err, content) => {
-    // return res.status(200).json({status: 0, content});
     res.send(content)
     });
-  // } else {
-  //   return res.status(204).send({status: 1, message: 'Database is empty'});
-  // }
 
 }
 
@@ -64,18 +60,13 @@ export const individualBalance = (req: Request, res: Response, next: NextFunctio
 
   const id  = req.params.accountNumber;
 
-  console.log(req.params);
+  let result = database.find( (acc: { account: number | string; }) => acc.account == id);
 
-  // if(id) {
-  let result = database.find( (acc: { account: any; }) => acc.account == id);
-  console.log(result);
-
-  res.send(result)
-
-  //   return res.status(200).send({status: 0, result});
-  // } else {
-  // return res.status(404).send({status: 1, message: 'This account does not exist in the database'});
-  // }
+  if(result) {
+    return res.status(200).send({status: 0, result});
+  } else {
+  return res.status(404).send({status: 1, message: 'This account does not exist in the database'});
+  }
 
 }
 
@@ -87,8 +78,8 @@ export const transfer = (req: Request, res: Response, next: NextFunction) => {
   let amountRecieved = body.amount;
   let description = body.transferDescription;
 
-  let find1 = database.findIndex((item: any) => item.account === senderAcc);
-  let find2 = database.findIndex((item: any) => item.account === receiverAcc);
+  let find1 = database.findIndex((item: { account: number | string; }) => item.account === senderAcc);
+  let find2 = database.findIndex((item: { account: number | string; }) => item.account === receiverAcc);
 
  if(amountRecieved < database[find1].balance) {
 
@@ -132,13 +123,4 @@ export const transfer = (req: Request, res: Response, next: NextFunction) => {
   });
 
   res.send(JSON.stringify(transactionData, null, 2));
-}
-
-
-
-module.exports = {
-  allBalances,
-  createAccount,
-  individualBalance,
-  transfer
 }
