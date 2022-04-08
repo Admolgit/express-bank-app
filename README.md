@@ -31,11 +31,19 @@ The transaction table registers any transaction in an account (ie. today I paid 
 The API you are to develop should be able to handle a transfer request of the form below and updates the transactions/balances table accordingly.
 ```
 {
-    from: account,
-    to: account,
-    amount: money
+    "from": account,
+    "to": account,
+    "amount": money
 }
 ```
+
+Then for openning an account 
+```
+{
+    "balance": account,
+}
+```
+Since account number and date account is created will be generated automatically for each customer
 
 ### Endpoints to test
 
@@ -47,7 +55,7 @@ The API you are to develop should be able to handle a transfer request of the fo
 | POST   | /transfer | To make a transaction to another account |
 
 ## Test coverage
-- Make sure you write test to cover your application using supertest
+- Test to cover the application using supertest
 
 ## Hosting
 - Host your application on Heroku
