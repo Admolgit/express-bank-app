@@ -1,4 +1,4 @@
-# week-7-task-node010
+# Express Bank App Documentation
 
 ### Requirements
 1. Your are required to use `TypeScript` for the task and build the APIs (endpoints) with `express`
