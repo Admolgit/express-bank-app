@@ -31,15 +31,13 @@ if(isExists2 === false) {
 
 let database = JSON.parse(fs.readFileSync(pathData, "utf-8"));
 
-export const allBalances = (req: Request, res: Response, next: NextFunction) => {
-  // if(isExists == true) {
-    fs.readFile(pathData, 'utf8', (err, content) => {
-    res.send(content)
-    });
-
+export const allBalances = (req: Request, res: Response) => {
+  fs.readFile(pathData, 'utf8', (err, content) => {
+  res.send(content)
+  });
 }
 
-export const createAccount = async (req: Request, res: Response, next: NextFunction) => {
+export const createAccount = async (req: Request, res: Response) => {
 
   let body = req.body;
   let uniqueAcc = await getRandom(10);
@@ -56,7 +54,7 @@ export const createAccount = async (req: Request, res: Response, next: NextFunct
 
 }
 
-export const individualBalance = (req: Request, res: Response, next: NextFunction) => {
+export const individualBalance = (req: Request, res: Response) => {
 
   const id  = req.params.accountNumber;
 
@@ -70,7 +68,7 @@ export const individualBalance = (req: Request, res: Response, next: NextFunctio
 
 }
 
-export const transfer = (req: Request, res: Response, next: NextFunction) => {
+export const transfer = (req: Request, res: Response) => {
   let body = req.body;
 
   let senderAcc = body.from;
@@ -103,7 +101,7 @@ export const transfer = (req: Request, res: Response, next: NextFunction) => {
     console.log(err);
   })
   } else {
-    return res.status(404).send({ message: "Insufficient funds" })
+    return res.status(400).send({ message: "Insufficient funds" })
   }
 
 
@@ -123,4 +121,13 @@ export const transfer = (req: Request, res: Response, next: NextFunction) => {
   });
 
   res.send(JSON.stringify(transactionData, null, 2));
+}
+
+
+
+module.exports = {
+  allBalances,
+  createAccount,
+  individualBalance,
+  transfer
 }

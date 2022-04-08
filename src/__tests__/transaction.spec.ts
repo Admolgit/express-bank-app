@@ -32,20 +32,10 @@ const trans = {
 
 describe("Should respond with 200 when user is posted", () => {
 
-  it("POST /send", async () =>  {
-    const res = await request(app)
-      .post("/create-account")
-      .expect("Content-Type", /json/)
-      .send({
-        balancePost
-      });
-      expect(200).toBe(200)
-  });
-
   it("should return 404 status code", async () => {
     const res = await request(app)
-    .post("").send(balancePost);
-    expect(404).toBe(404);
+    .post("").send(balancePost)
+    .expect(404);
   })
 
 });
@@ -56,7 +46,7 @@ describe("Should return 200 for users found", () => {
       .send({
         balance
       })
-      expect(200).toStrictEqual(200)
+      .expect(200)
   });
 
   it("GET /", async () => {
@@ -64,42 +54,17 @@ describe("Should return 200 for users found", () => {
       .send({
         balance
       })
-      expect(404).toBe(404)
+      .expect(404)
   });
-});
-
-
-describe("GET /balances/:id", () => {
-
-    it("should return an 200 status for item found", async () => {
-      let accountNumber;
-        const res = await request(app).get(`/balances/${accountNumber}`);
-        expect(res.status).toBe(404);
-    });
-
 });
 
 describe("GET /balances/:id", () => {
 
   it("should return an 404 status for item not found", async () => {
     let accountNumber;
-      const res = await request(app).put(`/${accountNumber}`);
-      expect(404).toBe(404);
+      const res = await request(app)
+      .put(`/${accountNumber}`)
+      .expect(404);
   });
-
-});
-
-describe("POST /transfer", () => {
-
-    it("should return a status for item not found", async () => {
-        const res = await request(app).delete(`/transfer`);
-        expect(200).toBe(200);
-    });
-
-    it("POST /transfer", async () => {
-      let accountNumber;
-      const res = await request(app).delete(`/transfer/${accountNumber}`)
-        expect(res.status).toBe(404);
-    });
 
 });
